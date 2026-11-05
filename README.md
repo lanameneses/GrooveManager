@@ -1,31 +1,36 @@
-# Groove Manager
+# GrooveManager
 
 **Projeto Full-Stack — UC02837 | Desenvolver projetos de programação**
 
-Aplicação web para gestão de um catálogo de discos de vinil e controlo das quantidades em stock. O utilizador inicia sessão, consulta os produtos e realiza operações de criação, edição, eliminação e atualização de stock, com persistência em MySQL.
+**Autora:** Lana Lima
+
+Trata-se de uma aplicação web desenvolvida para gerir o catálogo e controlar o stock de uma loja de discos de vinil.
+
+Permite consultar, adicionar, editar e eliminar produtos, pesquisar discos e atualizar as quantidades disponíveis. As informações são armazenadas numa base de dados MySQL.
 
 ## Funcionalidades
 
-- Autenticação por email e palavra-passe, com sessão no servidor e opção de terminar sessão.
-- Gestão de produtos (CRUD): adicionar, consultar, editar e eliminar discos.
-- Atualização de stock através dos botões **+** e **−**, sem permitir quantidades negativas.
-- Indicadores de total de produtos, total de unidades, produtos com stock baixo (1–2 unidades) e sem stock.
-- Pesquisa por título ou artista e filtros por categoria e disponibilidade.
-- Catálogo ilustrado com capas de álbuns e dados iniciais de demonstração.
+- Autenticação de utilizadores através de email e palavra-passe.
+- Gestão de produtos (CRUD): criar, consultar, editar e eliminar.
+- Pesquisa de discos por título ou artista.
+- Filtros por categoria e disponibilidade.
+- Atualização de stock através dos botões `+` e `−`.
+- Indicadores de produtos, unidades disponíveis, stock baixo e produtos sem stock.
+- Validação dos dados e prevenção de quantidades negativas.
+- Confirmação antes da eliminação de produtos.
 
 ## Tecnologias e arquitetura
 
 | Camada | Tecnologias |
-| --- | --- |
+|---|---|
 | Frontend | HTML5, CSS3 e JavaScript |
 | Backend | Node.js e Express |
-| Base de dados | MySQL, com o conector `mysql2` |
+| Base de dados | MySQL |
 | Sessões e autenticação | `express-session` e `bcrypt` |
+| Comunicação | API REST, HTTP e JSON |
 | Configuração | `dotenv` |
 
-**Fluxo básico:** interface → `fetch()` → API HTTP → validação no servidor → SQL parametrizado → resposta JSON → atualização da interface.
-
-As tabelas `products` e `categories` estão relacionadas por uma chave estrangeira. A tabela `users` guarda as contas com palavras-passe protegidas por hash.
+A aplicação comunica com o servidor através de pedidos HTTP utilizando `fetch()`. O backend recebe os pedidos, valida os dados e executa as operações necessárias na base de dados MySQL.
 
 ## Estrutura do projeto
 
@@ -43,9 +48,9 @@ GrooveManager/
 │   ├── users.sql
 │   └── utilizadores.sql
 ├── frontend/
-│   ├── index.html           # Login
-│   ├── stock.html           # Gestão de produtos e stock
-│   ├── about.html           # Sobre o projeto
+│   ├── index.html
+│   ├── stock.html
+│   ├── about.html
 │   ├── catalog.html
 │   ├── cart.html
 │   ├── css/
@@ -55,101 +60,163 @@ GrooveManager/
 └── README.md
 ```
 
-## Instalação local
+As três páginas principais da aplicação são:
 
-**Pré-requisitos:** Node.js, npm e um servidor MySQL em funcionamento. O MySQL Workbench pode ser utilizado para executar os scripts SQL.
+- `index.html` — página de login.
+- `stock.html` — gestão dos produtos e respetivas quantidades.
+- `about.html` — apresentação do projeto.
 
-1. Clonar o repositório e entrar na pasta do projeto:
+## Base de dados
 
-   ```bash
-   git clone https://github.com/tj6m69y99f-dotcom/GrooveManager.git
-   cd GrooveManager
-   ```
+A aplicação utiliza uma base de dados MySQL denominada `groove_store`, composta por três tabelas:
 
-2. No MySQL Workbench, executar **por esta ordem**:
-   - `database/schema.sql` — cria a base e recria as tabelas de categorias e produtos.
-   - `database/seed.sql` — insere categorias e produtos fictícios.
-   - `database/users.sql` — cria a tabela de utilizadores, caso ainda não exista.
+| Tabela | Descrição |
+|---|---|
+| `products` | Armazena as informações dos discos, incluindo título, artista, categoria, preço e stock. |
+| `categories` | Armazena as categorias musicais. |
+| `users` | Armazena os utilizadores e os hashes das palavras-passe. |
 
-   **Atenção:** `schema.sql` contém instruções `DROP TABLE`. Não executar sobre uma base de dados com informação que seja necessário conservar. O ficheiro `utilizadores.sql` é uma alternativa para a criação da tabela `users` e **não precisa de ser executado adicionalmente**.
+Cada produto está associado a uma categoria através da chave estrangeira `category_id`.
 
-3. Preparar as variáveis de ambiente:
+O backend utiliza consultas SQL parametrizadas para inserir, consultar, atualizar e eliminar os registos.
 
-   ```bash
-   cd backend
-   cp .env.example .env
-   ```
+## Instalação e execução
 
-   Editar `backend/.env` com as credenciais **locais** de MySQL e definir um `SESSION_SECRET` longo, aleatório e privado. O ficheiro `.env` está excluído do Git. Não publicar palavras-passe nem chaves reais.
+### Pré-requisitos
 
-4. Instalar dependências e criar o utilizador **de demonstração**:
+- Node.js e npm.
+- MySQL.
+- MySQL Workbench ou outro cliente SQL.
 
-   ```bash
-   npm ci
-   npm run create-admin
-   ```
+### 1. Obter o projeto
 
-   O script `create-admin.js` cria ou atualiza uma conta de demonstração com credenciais definidas no próprio código. **Destina-se exclusivamente a testes locais; não utilizar esta conta nem estas credenciais numa aplicação exposta à Internet.**
+```bash
+git clone https://github.com/tj6m69y99f-dotcom/GrooveManager.git
+cd GrooveManager
+```
 
-5. Iniciar a aplicação:
+### 2. Preparar a base de dados
 
-   ```bash
-   npm start
-   ```
+No MySQL Workbench, executar os seguintes ficheiros pela ordem indicada:
 
-6. Abrir **http://localhost:3000** no navegador. Não abrir o HTML diretamente como ficheiro local, pois a aplicação depende da API e da sessão.
+1. `database/schema.sql` — cria a base de dados e as tabelas de produtos e categorias.
+2. `database/seed.sql` — insere os produtos e categorias de demonstração.
+3. `database/users.sql` — cria a tabela de utilizadores.
 
-### Arranque no macOS
+**Atenção:** O ficheiro `schema.sql` contém instruções `DROP TABLE`, que eliminam e recriam as tabelas de produtos e categorias. Deve ser executado apenas na preparação inicial ou numa base de teste, pois os dados existentes nessas tabelas serão perdidos.
 
-O ficheiro `iniciar-groove.command` inicia o serviço MySQL através do Homebrew, arranca o backend e abre o navegador. Pressupõe que MySQL, Node.js e dependências já estão instalados e configurados. Alternativamente, iniciar o MySQL manualmente e usar `npm start` na pasta `backend`.
+O ficheiro `utilizadores.sql` é uma alternativa para a criação da tabela `users`, não sendo necessário executar os dois.
 
-## Páginas principais
+### 3. Configurar o backend
 
-- `/index.html` — formulário de login.
-- `/stock.html` — painel de gestão, acessível apenas com sessão válida.
-- `/about.html` — descrição do projeto.
+Na pasta `backend`, criar o ficheiro `.env` a partir do exemplo fornecido:
 
-## API HTTP
+```bash
+cd backend
+cp .env.example .env
+```
 
-| Método | Rota | Descrição |
-| --- | --- | --- |
-| GET | `/api/estado` | Verifica a ligação do backend ao MySQL |
-| POST | `/api/login` | Inicia uma sessão |
-| GET | `/api/session` | Consulta a sessão atual |
-| POST | `/api/logout` | Termina a sessão |
-| GET | `/api/categories` | Lista categorias |
-| GET | `/api/products` | Lista produtos |
-| GET | `/api/products/:id` | Consulta um produto |
-| POST | `/api/products` | Cria um produto |
-| PUT | `/api/products/:id` | Edita dados e stock de um produto |
-| DELETE | `/api/products/:id` | Elimina um produto |
+A configuração utilizada durante o desenvolvimento é:
 
-As rotas de categorias e produtos exigem sessão válida. O servidor utiliza códigos HTTP para indicar sucesso, erros de validação, recursos inexistentes e falta de autenticação.
+```env
+PORT=3000
+DB_HOST=localhost
+DB_PORT=3306
+DB_USER=root
+DB_PASSWORD=
+DB_NAME=groove_store
+SESSION_SECRET=substituir_por_uma_chave_local
+```
 
-## Demonstração e verificações
+O MySQL utilizado no desenvolvimento está configurado com o utilizador `root` sem palavra-passe. Por esse motivo, `DB_PASSWORD` permanece vazio.
 
-Exemplos de operações a demonstrar no navegador:
+A variável `SESSION_SECRET` corresponde à chave privada utilizada pelo servidor para assinar o cookie de sessão. Deve ser definida no ficheiro `.env` com um valor privado.
 
-1. Iniciar sessão e abrir a página de stock.
-2. Pesquisar um disco e aplicar um filtro de disponibilidade.
-3. Criar um produto de teste e confirmar que aparece na lista.
-4. Editar os dados do produto e atualizar o stock.
-5. Recarregar a página para verificar a persistência no MySQL.
-6. Eliminar o produto de teste após confirmação.
-7. Terminar sessão e confirmar que o painel de gestão deixa de estar acessível.
+O ficheiro `.env` contém configurações locais e está excluído do repositório através do `.gitignore`.
 
-Estas são **verificações sugeridas para apresentação**, não um relatório de testes executados automaticamente.
+### 4. Instalar as dependências
 
-## Limitações e notas
+No terminal, dentro da pasta `backend`:
 
-- Projeto académico destinado a execução e demonstração **local**; não está preparado para alojamento público com acesso à gestão.
-- Publicar o **código no GitHub** não disponibiliza automaticamente o site online.
-- A conta criada por `create-admin.js` é apenas demonstrativa.
-- Não existem pagamentos reais nem gestão de encomendas.
-- As imagens e exemplos do catálogo destinam-se à demonstração académica; os direitos sobre capas e outros materiais pertencem aos respetivos titulares.
-- Para entrega segundo o enunciado da UC02837, a documentação de planeamento, testes e resultados observados deve acompanhar o projeto quando exigida pelo formador.
+```bash
+npm ci
+```
+
+### 5. Criar o utilizador de demonstração
+
+```bash
+npm run create-admin
+```
+
+Este comando cria ou atualiza a conta utilizada para testar a autenticação em ambiente local. As credenciais de demonstração estão definidas no ficheiro `backend/create-admin.js`.
+
+### 6. Iniciar a aplicação
+
+```bash
+npm start
+```
+
+Depois, abrir no navegador:
+
+**http://localhost:3000**
+
+O frontend deve ser acedido através do servidor, uma vez que depende da API e do sistema de autenticação.
+
+## API REST
+
+| Método | Endpoint | Função |
+|---|---|---|
+| GET | `/api/estado` | Verificar a ligação do backend ao MySQL |
+| POST | `/api/login` | Iniciar sessão |
+| GET | `/api/session` | Verificar a sessão |
+| POST | `/api/logout` | Terminar sessão |
+| GET | `/api/categories` | Consultar categorias |
+| GET | `/api/products` | Listar produtos |
+| GET | `/api/products/:id` | Consultar um produto |
+| POST | `/api/products` | Adicionar um produto |
+| PUT | `/api/products/:id` | Atualizar um produto |
+| DELETE | `/api/products/:id` | Eliminar um produto |
+
+As rotas de produtos e categorias exigem uma sessão autenticada.
+
+## Testes realizados
+
+Foram realizados testes funcionais através da interface e testes de validação utilizando pedidos HTTP à API.
+
+| Teste | Resultado observado |
+|---|---|
+| Login com credenciais válidas | Sessão iniciada corretamente |
+| Criação de produto | Produto adicionado e apresentado na tabela |
+| Eliminação de produto | Confirmação apresentada e produto eliminado |
+| Pesquisa sem correspondências | Mensagem de lista vazia apresentada |
+| Atualização de stock | Botões `+` e `−` funcionam corretamente |
+| Tentativa de stock negativo | Operação rejeitada |
+| Preço negativo enviado à API | HTTP 400 |
+| Preço enviado como texto | HTTP 400 |
+| Título vazio | HTTP 400 |
+| Stock decimal | HTTP 400 |
+| Categoria inexistente | HTTP 400 |
+
+### Correções realizadas
+
+Durante o desenvolvimento e os testes, foram identificados e corrigidos problemas relacionados com a pesquisa sem resultados e com a validação de dados.
+
+Foi também ajustada a atualização de stock para assegurar a compatibilidade entre os valores recebidos do MySQL e os dados enviados ao backend.
+
+Após essas alterações, os comportamentos afetados foram novamente testados.
+
+## Limitações
+
+O GrooveManager foi desenvolvido para execução e demonstração em ambiente local, não estando preparado para disponibilização pública como serviço de gestão.
+
+A aplicação não inclui pagamentos, processamento de encomendas ou outras operações de comércio eletrónico.
+
+A autenticação utiliza uma conta de demonstração, destinada exclusivamente a testes locais.
 
 ## Autoria
 
-Lana Lima
-UC02837 — Desenvolver projetos de programação.
+**Lana Lima**
+
+UC02837 — Desenvolver projetos de programação
+
+2026
