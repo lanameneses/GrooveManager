@@ -1,5 +1,6 @@
 let products = [];
 let categories = [];
+const pendingStockUpdates = new Set();
 
 const productForm = document.getElementById("productForm");
 const productId = document.getElementById("productId");
@@ -185,7 +186,7 @@ function renderPage() {
   renderTable();
 }
 
-async function changeStock(product, change) {
+ async function changeStock(product, change) {
   const newStock = product.stock + change;
 
   if (newStock < 0) {
@@ -193,12 +194,15 @@ async function changeStock(product, change) {
     return;
   }
 
+  if (pendingStockUpdates.has(product.id)) return;
+  pendingStockUpdates.add(product.id);
+
   const updatedProduct = {
     categoryId: product.categoryId,
     title: product.title,
     artist: product.artist,
     condition: product.condition,
-    price: product.price,
+    price: Number(product.price),
     stock: newStock,
     coverClass: product.coverClass,
     imageUrl: product.imageUrl
@@ -214,6 +218,8 @@ async function changeStock(product, change) {
     await loadProducts("Stock atualizado com sucesso.");
   } catch (error) {
     stockStatus.textContent = error.message;
+  }finally {
+    pendingStockUpdates.delete(product.id);
   }
 }
 
