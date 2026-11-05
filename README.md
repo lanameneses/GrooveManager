@@ -1,8 +1,8 @@
 # Groove Manager
 
-**Projeto individual Full-Stack — UC02837 | Desenvolver projetos de programação**
+**Projeto Full-Stack — UC02837 | Desenvolver projetos de programação**
 
-Aplicação web para gestão de um catálogo de discos de vinil e controlo das quantidades em stock. O utilizador inicia sessão, consulta os produtos e realiza operações de criação, edição, eliminação e atualização de stock, com persistência em **MySQL**.
+Aplicação web para gestão de um catálogo de discos de vinil e controlo das quantidades em stock. O utilizador inicia sessão, consulta os produtos e realiza operações de criação, edição, eliminação e atualização de stock, com persistência em MySQL.
 
 ## Funcionalidades
 
@@ -151,4 +151,5 @@ Estas são **verificações sugeridas para apresentação**, não um relatório 
 
 ## Autoria
 
-Projeto desenvolvido individualmente para a UC02837 — Desenvolver projetos de programação.
+Lana Lima
+UC02837 — Desenvolver projetos de programação.
