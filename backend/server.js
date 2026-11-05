@@ -105,6 +105,16 @@ function validProduct(product) {
   return true;
 }
 
+// Protege as rotas da API.
+function requireAuth(request, response, next) {
+  if (!request.session.user) {
+    return response.status(401).json({
+      erro: "É necessário iniciar sessão."
+    });
+  }
+
+  next();
+}
 
 // Protege a página de gestão.
 function requirePageAuth(request, response, next) {
