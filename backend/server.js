@@ -43,28 +43,68 @@ function validId(value) {
   return Number.isInteger(id) && id > 0;
 }
 
-function validProduct(product) {
-  return (
-    validId(product.categoryId) &&
-    String(product.title || "").trim() !== "" &&
-    String(product.artist || "").trim() !== "" &&
-    ["New", "Used"].includes(product.condition) &&
-    Number.isFinite(Number(product.price)) && Number(product.price) >= 0 &&
-    Number.isInteger(Number(product.stock)) && Number(product.stock) >= 0 &&
-    String(product.imageUrl || "").trim() !== ""
-  );
-}
 
-// Protege as rotas da API.
-function requireAuth(request, response, next) {
-  if (!request.session.user) {
-    return response.status(401).json({
-      erro: "É necessário iniciar sessão."
-    });
+function validProduct(product) {
+  if (!product || typeof product !== "object" || Array.isArray(product)) {
+    return false;
   }
 
-  next();
+  const { categoryId, title, artist, condition, price, stock, imageUrl } = product;
+
+  if (!Number.isInteger(categoryId) || categoryId <= 0) {
+    return false;
+  }
+
+  if (
+    typeof title !== "string" ||
+    title.trim().length === 0 ||
+    title.length > 180
+  ) {
+    return false;
+  }
+
+  if (
+    typeof artist !== "string" ||
+    artist.trim().length === 0 ||
+    artist.length > 180
+  ) {
+    return false;
+  }
+
+  if (!["New", "Used"].includes(condition)) {
+    return false;
+  }
+
+  if (
+    typeof price !== "number" ||
+    !Number.isFinite(price) ||
+    price < 0 ||
+    price > 99999999.99 ||
+    Math.abs(price * 100 - Math.round(price * 100)) > 0.000001
+  ) {
+    return false;
+  }
+
+  if (
+    typeof stock !== "number" ||
+    !Number.isInteger(stock) ||
+    stock < 0 ||
+    stock > 4294967295
+  ) {
+    return false;
+  }
+
+  if (
+    typeof imageUrl !== "string" ||
+    imageUrl.trim().length === 0 ||
+    imageUrl.length > 255
+  ) {
+    return false;
+  }
+
+  return true;
 }
+
 
 // Protege a página de gestão.
 function requirePageAuth(request, response, next) {
