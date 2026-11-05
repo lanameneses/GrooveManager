@@ -2,8 +2,6 @@
 
 **Projeto Full-Stack — UC02837 | Desenvolver projetos de programação**
 
-**Autora:** Lana Lima
-
 Trata-se de uma aplicação web desenvolvida para gerir o catálogo e controlar o stock de uma loja de discos de vinil.
 
 Permite consultar, adicionar, editar e eliminar produtos, pesquisar discos e atualizar as quantidades disponíveis. As informações são armazenadas numa base de dados MySQL.
