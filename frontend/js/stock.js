@@ -128,27 +128,15 @@ function renderTable() {
 
   if (filtered.length === 0) {
     const row = document.createElement("tr");
-    const coverCell = document.createElement("td");
-const coverImage = document.createElement("img");
-
-coverImage.src = product.imageUrl;
-coverImage.alt = `Capa de ${product.title}`;
-coverImage.className = "stock-cover";
-
-coverImage.addEventListener("error", () => {
-  coverImage.remove();
-  coverCell.textContent = "Sem imagem";
-});
-
-coverCell.appendChild(coverImage);
-row.appendChild(coverCell);
     const cell = document.createElement("td");
+
     cell.colSpan = 7;
     cell.textContent = "Não existem produtos para apresentar.";
+
     row.appendChild(cell);
     productTableBody.appendChild(row);
     return;
-  }
+}
 
   for (const product of filtered) {
     const row = document.createElement("tr");
