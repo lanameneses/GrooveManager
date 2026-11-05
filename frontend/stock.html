@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Gestão de produtos e stock da Groove">
+  <title>Groove Manager | Stock</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/stock.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand brand-simple" href="stock.html">GROOVE MANAGER</a>
+    <nav aria-label="Navegação principal">
+      <ul class="nav-list">
+        <li><a class="active" href="stock.html">Stock</a></li>
+        <li><a href="about.html">Sobre</a></li>
+        <li><button id="logoutButton" class="nav-button" type="button">Sair</button></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main class="section stock-main min-page">
+  <div class="container">
+    <div class="management-heading">
+      <div>
+        <p class="kicker orange-text">GESTÃO DA LOJA</p>
+        <h1>CONTROLO DE STOCK</h1>
+      </div>
+      <p id="welcomeMessage" class="management-note"></p>
+    </div>
+
+    <section class="stock-summary" aria-label="Resumo do stock">
+      <article class="summary-card">
+        <span>Produtos</span>
+        <strong id="totalProducts">0</strong>
+      </article>
+      <article class="summary-card">
+        <span>Unidades</span>
+        <strong id="totalUnits">0</strong>
+      </article>
+      <article class="summary-card">
+        <span>Stock baixo</span>
+        <strong id="lowStock">0</strong>
+      </article>
+      <article class="summary-card">
+        <span>Sem stock</span>
+        <strong id="outOfStock">0</strong>
+      </article>
+    </section>
+
+    <div class="stock-tools">
+      <label>
+        <span>Pesquisar</span>
+        <input id="searchInput" type="search" placeholder="Título ou artista">
+      </label>
+      <label>
+        <span>Categoria</span>
+        <select id="categoryFilter">
+          <option value="All">Todas</option>
+        </select>
+      </label>
+      <label>
+        <span>Disponibilidade</span>
+        <select id="stockFilter">
+          <option value="All">Todos</option>
+          <option value="Available">Com stock</option>
+          <option value="Low">Stock baixo</option>
+          <option value="Empty">Sem stock</option>
+        </select>
+      </label>
+    </div>
+
+    <div class="management-layout">
+      <section class="admin-panel" aria-labelledby="formTitle">
+        <h2 id="formTitle">Adicionar produto</h2>
+
+        <form id="productForm">
+          <input id="productId" type="hidden">
+
+          <div class="field">
+            <label for="title">Título</label>
+            <input id="title" type="text" maxlength="180" required>
+          </div>
+
+          <div class="field">
+            <label for="artist">Artista</label>
+            <input id="artist" type="text" maxlength="180" required>
+          </div>
+
+          <div class="field">
+            <label for="categoryId">Categoria</label>
+            <select id="categoryId" required></select>
+          </div>
+
+          <div class="two-fields">
+            <div class="field">
+              <label for="condition">Estado</label>
+              <select id="condition" required>
+                <option value="New">Novo</option>
+                <option value="Used">Usado</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="stock">Stock inicial</label>
+              <input id="stock" type="number" min="0" step="1" required>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="price">Preço</label>
+            <input id="price" type="number" min="0" step="0.01" required>
+          </div>
+
+          <div class="field">
+            <label for="imageUrl">Caminho da imagem</label>
+            <input id="imageUrl" type="text"
+              placeholder="images/covers/exemplo.jpg" required>
+          </div>
+
+          <div class="admin-actions">
+            <button id="submitButton" class="btn btn-orange" type="submit">
+              Guardar produto
+            </button>
+            <button id="cancelEdit" class="btn btn-outline" type="button" hidden>
+              Cancelar
+            </button>
+          </div>
+
+          <p id="formMessage" class="form-message" aria-live="polite"></p>
+        </form>
+      </section>
+
+      <section class="admin-list-section" aria-labelledby="listTitle">
+        <div class="admin-list-header">
+          <h2 id="listTitle">Produtos registados</h2>
+          <p id="stockStatus" aria-live="polite"></p>
+        </div>
+
+        <div class="table-wrap">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Capa</th>
+                <th>Produto</th>
+                <th>Categoria</th>
+                <th>Preço</th>
+                <th>Stock</th>
+                <th>Movimento</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody id="productTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+  </div>
+</main>
+
+<script src="js/stock.js"></script>
+</body>
+</html>

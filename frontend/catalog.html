@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Catálogo de discos da Groove Store">
+  <title>Groove Store | Catálogo</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand brand-simple" href="index.html">GROOVE STORE</a>
+    <nav aria-label="Navegação principal">
+      <ul class="nav-list">
+        <li><a href="index.html">Início</a></li>
+        <li><a class="active" href="catalog.html">Catálogo</a></li>
+        <li><a href="about.html">Sobre</a></li>
+        <li><a href="cart.html">Carrinho <span class="cart-count">0</span></a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main class="section section-light min-page">
+  <div class="container">
+    <div class="section-heading dark-text">
+      <div><p class="kicker">DISCOS DISPONÍVEIS</p><h1>CATÁLOGO</h1></div>
+      <div class="filter-pills" aria-label="Filtrar por estado">
+        <button class="filter-btn active" data-state="All">Todos</button>
+        <button class="filter-btn" data-state="New">Novos</button>
+        <button class="filter-btn" data-state="Used">Usados</button>
+      </div>
+    </div>
+    <div class="catalog-tools">
+      <label><span class="sr-only">Pesquisar produtos</span><input id="searchInput" type="search" placeholder="Pesquisar por álbum ou artista"></label>
+      <label><span class="sr-only">Filtrar por categoria</span>
+        <select id="categoryFilter">
+          <option value="All">Todas as categorias</option>
+          <option value="Rock">Rock</option><option value="Pop">Pop</option>
+          <option value="Jazz & Blues">Jazz & Blues</option>
+          <option value="Música Portuguesa">Música Portuguesa</option>
+          <option value="Soul / Funk / Disco">Soul / Funk / Disco</option>
+        </select>
+      </label>
+    </div>
+    <p class="status-message" id="catalogStatus" aria-live="polite"></p>
+    <div class="category-groups" id="productGrid"></div>
+  </div>
+</main>
+
+<footer class="site-footer"><div class="container footer-grid"><div><strong class="orange-text">GROOVE STORE</strong></div><div><a href="index.html">Início</a><a href="about.html">Sobre</a></div><div><p>Projeto académico Full-Stack</p></div></div></footer>
+<script src="js/data.js"></script>
+<script src="js/catalog.js"></script>
+</body>
+</html>

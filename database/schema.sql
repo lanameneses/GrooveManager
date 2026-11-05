@@ -1,0 +1,32 @@
+CREATE DATABASE IF NOT EXISTS groove_store
+  CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_ci;
+
+USE groove_store;
+
+DROP TABLE IF EXISTS products;
+DROP TABLE IF EXISTS categories;
+
+CREATE TABLE categories (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(100) NOT NULL UNIQUE,
+  description VARCHAR(255)
+) ENGINE=InnoDB;
+
+CREATE TABLE products (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  category_id INT UNSIGNED NOT NULL,
+  title VARCHAR(180) NOT NULL,
+  artist VARCHAR(180) NOT NULL,
+  `condition` ENUM('New', 'Used') NOT NULL DEFAULT 'New',
+  price DECIMAL(10,2) NOT NULL,
+  stock INT UNSIGNED NOT NULL DEFAULT 0,
+  cover_class VARCHAR(80) NOT NULL DEFAULT 'cover-1',
+  image_url VARCHAR(255) NOT NULL,
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  CONSTRAINT fk_product_category
+    FOREIGN KEY (category_id) REFERENCES categories(id),
+  CONSTRAINT chk_product_price CHECK (price >= 0),
+  CONSTRAINT chk_product_stock CHECK (stock >= 0)
+) ENGINE=InnoDB;

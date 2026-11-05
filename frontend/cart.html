@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Carrinho de compras da Groove Store">
+  <title>Groove Store | Carrinho</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand brand-simple" href="index.html">GROOVE STORE</a>
+
+    <nav aria-label="Navegação principal">
+      <ul class="nav-list">
+        <li><a href="index.html">Início</a></li>
+        <li><a href="catalog.html">Catálogo</a></li>
+        <li><a href="about.html">Sobre</a></li>
+        <li><a class="active" href="cart.html">Carrinho <span class="cart-count">0</span></a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main class="section section-dark min-page">
+  <div class="container cart-page">
+    <div>
+      <p class="kicker orange-text">A TUA SELEÇÃO</p>
+      <h1>CARRINHO</h1>
+      <p class="muted">Este carrinho é apenas demonstrativo. Não são realizados pagamentos reais.</p>
+    </div>
+
+    <div id="cartItems" class="cart-items">
+      <p class="empty-message">O teu carrinho está vazio.</p>
+    </div>
+
+    <div class="cart-summary">
+      <div class="cart-total">
+        <span>Total</span>
+        <strong id="cartTotal">€0.00</strong>
+      </div>
+      <div class="cart-buttons">
+        <a class="btn btn-outline" href="catalog.html">CONTINUAR A COMPRAR</a>
+        <button id="clearCart" class="btn btn-orange" type="button">LIMPAR CARRINHO</button>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <a class="brand brand-simple" href="index.html">GROOVE STORE</a>
+      <p class="muted">Discos de vinil. Muito mais do que música.</p>
+    </div>
+    <div><a href="index.html">Início</a><a href="catalog.html">Catálogo</a><a href="about.html">Sobre</a></div>
+    <div><p>Projeto académico Full-Stack</p><p>2026</p></div>
+  </div>
+</footer>
+
+<script src="js/data.js"></script>
+<script src="js/cart.js"></script>
+</body>
+</html>

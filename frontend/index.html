@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Acesso ao sistema de gestão de stock Groove">
+  <title>Groove Manager | Login</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/stock.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand brand-simple" href="index.html">GROOVE MANAGER</a>
+    <nav aria-label="Navegação principal">
+      <ul class="nav-list">
+        <li><a class="active" href="index.html">Login</a></li>
+        <li><a href="about.html">Sobre</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="simple-hero login-hero">
+    <div class="login-card">
+      <p class="kicker orange-text">CONTROLO DE STOCK</p>
+      <h1>GROOVE<br>MANAGER</h1>
+      <p class="login-intro">Inicie sessão para gerir os produtos e as quantidades disponíveis.</p>
+
+      <form id="loginForm">
+        <div class="field">
+          <label for="email">Email</label>
+          <input id="email" type="email" autocomplete="username" required>
+        </div>
+
+        <div class="field">
+          <label for="password">Palavra-passe</label>
+          <input id="password" type="password" autocomplete="current-password" required>
+        </div>
+
+        <button id="loginButton" class="btn btn-orange login-button" type="submit">
+          ENTRAR
+        </button>
+
+        <p id="loginMessage" class="form-message" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div><strong class="orange-text">GROOVE MANAGER</strong></div>
+    <div><a href="about.html">Sobre</a></div>
+    <div><p>Projeto académico Full-Stack</p><p>2026</p></div>
+  </div>
+</footer>
+
+<script src="js/login.js"></script>
+</body>
+</html>
