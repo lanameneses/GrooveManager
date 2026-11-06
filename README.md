@@ -49,8 +49,6 @@ GrooveManager/
 │   ├── index.html
 │   ├── stock.html
 │   ├── about.html
-│   ├── catalog.html
-│   ├── cart.html
 │   ├── css/
 │   ├── js/
 │   └── images/
