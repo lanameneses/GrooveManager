@@ -144,7 +144,14 @@ npm ci
 npm run create-admin
 ```
 
-Este comando cria ou atualiza a conta utilizada para testar a autenticação em ambiente local. As credenciais de demonstração estão definidas no ficheiro `backend/create-admin.js`.
+Este comando cria ou atualiza uma conta de demonstração para testar a autenticação e as funcionalidades de gestão da aplicação.
+
+Para iniciar sessão, utilizar as seguintes credenciais:
+
+- **Email:** `groove@teste.pt`
+- **Palavra-passe:** `123456`
+
+As credenciais estão definidas no ficheiro `backend/create-admin.js` e destinam-se exclusivamente à execução e aos testes em ambiente local.
 
 ### 6. Iniciar a aplicação
 
@@ -157,6 +164,16 @@ Depois, abrir no navegador:
 **http://localhost:3000**
 
 O frontend deve ser acedido através do servidor, uma vez que depende da API e do sistema de autenticação.
+
+### Arranque alternativo no macOS
+
+O projeto inclui o ficheiro `iniciar-groove.command`, que permite iniciar a aplicação de forma simplificada em computadores macOS com Homebrew.
+
+Este ficheiro executa o serviço MySQL através do Homebrew, inicia o servidor Node.js e abre a aplicação no navegador.
+
+A utilização deste ficheiro é opcional. A aplicação também pode ser iniciada manualmente através do comando `npm start`, conforme descrito anteriormente.
+
+Para utilizar este método, é necessário que o MySQL esteja instalado através do Homebrew e que a configuração do ambiente já tenha sido realizada.
 
 ## API REST
 
