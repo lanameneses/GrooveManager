@@ -87,7 +87,7 @@ O backend utiliza consultas SQL parametrizadas para inserir, consultar, atualiza
 ### 1. Obter o projeto
 
 ```bash
-git clone https://github.com/tj6m69y99f-dotcom/GrooveManager.git
+git clone https://github.com/lanameneses/GrooveManager.git
 cd GrooveManager
 ```
 
